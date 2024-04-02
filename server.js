@@ -3,6 +3,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const bcrypt = require('bcrypt');
 const cors = require('cors')
 const users = require('./routes/users');
 const { generateOTP } = require('./utils/otp');
