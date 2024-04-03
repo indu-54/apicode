@@ -3,8 +3,11 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 const UserModel = require('../models/usermodel');
-const { generateOTP } = require('../utils/otp');
+// const { generateOTP } = require('../utils/otp');
 const router = express.Router();
+
+const otp = Math.floor(100000 + Math.random() * 90000);
+      
 const jwt = require('jsonwebtoken');
 const authenticate = require('../middleware/authenticate');
 
@@ -24,9 +27,9 @@ router.post('/register', async (req, res) => {
             return res.status(400).json({ success: false, message: 'Email already exists' });
         }
 
-              // Generate OTP
+        //       // Generate OTP
 
-        const otp = Math.floor(100000 + Math.random() * 90000);
+        // const otp = Math.floor(100000 + Math.random() * 90000);
       
 
         // Hash the password
@@ -40,8 +43,8 @@ router.post('/register', async (req, res) => {
             passwordHash: hashedPassword,
             confirmpasswordHash: hashedPassword, // Assuming you want to store this in the database
             mobileNumber,
-            address,
-            otp
+            address
+            
         });
 
         // Save the user to the database
@@ -125,7 +128,17 @@ router.post('/verify-otp', async (req, res) => {
 //         res.status(500).json({ success: false, message: 'Failed to fetch user' });
 //     }
 // });
-
+router.get('/users', authenticate, (req, res) => {
+    const userId = req.userData.userId;
+    UserModel.findById(userId)
+        .then(result => {
+            res.json({ success: true, data: result });
+        })
+        .catch(err => {
+            console.error(err);
+            res.status(500).json({ success: false, message: "Server error" });
+        });
+});
 router.get('/success', async (req, res) => {
     try {
         const users = await UserModel.find({});
