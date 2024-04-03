@@ -8,6 +8,7 @@ const orderSchema = new Schema({
     orderDate: { type: Date, required: true },
     expectedDate: { type: Date, required: true },
     orderStatus: { type: String, required: true },
+    orderproduct:{type: String, require:true}
     
 });
 
