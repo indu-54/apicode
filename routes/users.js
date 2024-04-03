@@ -1,13 +1,13 @@
 
 const express = require('express');
 const UserModel = require('../models/usermodel');
+const bcrypt = require('bcrypt');
 const router = express.Router();
-const otp = Math.floor(100000 + Math.random() * 90000);  
+const otp = Math.floor(100000 + Math.random() * 90000);
 const jwt = require('jsonwebtoken');
 const authenticate = require('../middleware/authenticate');
 
 // User Registration
-
 router.post('/register', async (req, res) => {
     try {
         const { firstname, lastname, email, password, confirmpassword, mobileNumber, address } = req.body;
@@ -23,11 +23,6 @@ router.post('/register', async (req, res) => {
             return res.status(400).json({ success: false, message: 'Email already exists' });
         }
 
-        //       // Generate OTP
-
-        // const otp = Math.floor(100000 + Math.random() * 90000);
-      
-
         // Hash the password
         const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -39,7 +34,9 @@ router.post('/register', async (req, res) => {
             passwordHash: hashedPassword,
             confirmpasswordHash: hashedPassword, // Assuming you want to store this in the database
             mobileNumber,
-            address
+            address,
+            otp
+            
             
         });
 
