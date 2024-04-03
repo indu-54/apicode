@@ -102,8 +102,7 @@ router.post('/verify-otp', async (req, res) => {
         res.status(500).json({ success: false, message: 'OTP verification failed' });
     }
 });
-// // GET method to retrieve user details by userid
-// router.get('/user/:userid', async (req, res) => {
+
 //     try {
 //         const userId = req.params.userId;
 
