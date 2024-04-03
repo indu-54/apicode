@@ -6,25 +6,24 @@ const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
 const cors = require('cors')
 const users = require('./routes/users');
-const { generateOTP } = require('./utils/otp');
+const OrderRouter = require('./routes/OrderRouter');
+const ProductRoute = require('./routes/ProductRoute');
 const path = require('path');
 const Schema = mongoose.Schema;
 const twilio =require('twilio');
 const ejs = require("ejs");
+
 require("dotenv").config();
 const app = express();
-
-const PORT = process.env.PORT || 4500;
-
-
-
+const PORT = process.env.PORT || 2500;
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cors());
 
 app.use('/api', users);
-
+app.use('/api', ProductRoute);
+app.use('/api',OrderRouter);
 
 // const uri = 'mongodb+srv://indusunkari7:wa4A2a6fyyJXhb5E@cluster0.qxxy8tt.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
 const uri ='mongodb+srv://indusunkari7:J5uQWsTsBuLKQRVL@cluster0.rinj5sl.mongodb.net/';
