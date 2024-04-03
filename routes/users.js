@@ -1,17 +1,15 @@
 
 
 const express = require('express');
-const bcrypt = require('bcrypt');
+// const bcrypt = require('bcrypt');
 const UserModel = require('../models/usermodel');
-// const { generateOTP } = require('../utils/otp');
 const router = express.Router();
-
-const otp = Math.floor(100000 + Math.random() * 90000);
-      
+const otp = Math.floor(100000 + Math.random() * 90000);  
 const jwt = require('jsonwebtoken');
 const authenticate = require('../middleware/authenticate');
 
 // User Registration
+
 router.post('/register', async (req, res) => {
     try {
         const { firstname, lastname, email, password, confirmpassword, mobileNumber, address } = req.body;
