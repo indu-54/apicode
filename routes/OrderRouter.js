@@ -4,11 +4,12 @@ const Order = require('../models/OrderModel');
  
 router.post('/orders', async (req, res) => {
     try {
-        const {  orderDate, expectedDate, orderStatus } = req.body;
+        const {  orderDate, expectedDate, orderStatus,orderproduct } = req.body;
         const newOrder = new Order({
             orderDate,
             expectedDate,
-            orderStatus
+            orderStatus,
+            orderproduct,
         });
         const savedOrder = await newOrder.save();
         res.status(201).json(savedOrder);
@@ -39,11 +40,12 @@ router.get('/orders/:id', async (req, res) => {
 });
 router.put('/orders/:id', async (req, res) => {
     try {
-        const {  orderDate, expectedDate, orderStatus } = req.body;
+        const {  orderDate, expectedDate, orderStatus, orderproduct } = req.body;
         const updatedOrder = await Order.findByIdAndUpdate(req.params.id, {
             orderDate,
             expectedDate,
-            orderStatus
+            orderStatus,
+            orderproduct
         }, { new: true });
         if (!updatedOrder) {
             return res.status(404).json({ message: 'Order not found' });
