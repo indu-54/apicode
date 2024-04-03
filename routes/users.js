@@ -1,7 +1,5 @@
 
-
 const express = require('express');
-const bcrypt = require('bcrypt');
 const UserModel = require('../models/usermodel');
 const router = express.Router();
 const otp = Math.floor(100000 + Math.random() * 90000);  
